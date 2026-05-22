@@ -1,0 +1,4 @@
+[ main ]
+wai.main()() = {
+	wai.print.string("Hello, World!")()
+}

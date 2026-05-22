@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Wai/Wai.vcxproj" Id="232112f2-9c9c-4dcd-a2ec-d7e5b4ecae23" />
+</Solution>
