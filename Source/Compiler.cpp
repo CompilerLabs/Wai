@@ -2,15 +2,12 @@
 
 #include "Lexer.cpp"
 
-namespace Wai::Compiling
-{
-	class Compiler
-	{
+namespace Wai::Compiling {
+	class Compiler {
 	public:
 		Lexing::Lexlings lexlings;
 
-		void Compile()
-		{
+		void Compile() {
 			std::cout << "Starting compilation..." << std::endl;
 		}
 	};

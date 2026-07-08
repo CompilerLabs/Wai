@@ -2,8 +2,7 @@
 
 #include "Compiler.cpp"
 
-int main()
-{
+int main() {
 	Wai::Compiling::Compiler compiler;
 	compiler.Compile();
 }

@@ -5,8 +5,7 @@
 #include <stdint.h>
 
 /* Basic Types */
-namespace Wai
-{
+namespace Wai {
 	// intger types
 	typedef uint8_t U8;
 	typedef uint16_t U16;
@@ -26,19 +25,16 @@ namespace Wai
 }
 
 /* Files */
-namespace Wai::FileManagement
-{
+namespace Wai::FileManagement {
 	// one file
-	class File
-	{
+	class File {
 	public:
 		std::string path;
 		std::string data;
 	};
 
 	// multiple files
-	class Files
-	{
+	class Files {
 	public:
 		std::vector<File> files;
 	};

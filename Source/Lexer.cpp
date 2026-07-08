@@ -2,10 +2,8 @@
 
 #include "Basic.cpp"
 
-namespace Wai::Lexing
-{
-	enum LexlingType
-	{
+namespace Wai::Lexing {
+	enum LexlingType {
 		None,
 		Name,
 		LeftParenthesis,
@@ -18,26 +16,22 @@ namespace Wai::Lexing
 		COUNT
 	};
 
-	class Lexling
-	{
+	class Lexling {
 	public:
 		LexlingType type;
 		std::string value;
 	};
 
-	class Lexlings
-	{
+	class Lexlings {
 	public:
 		std::vector<Lexling> lexlings;
 
-		Lexlings()
-		{
+		Lexlings() {
 			lexlings = std::vector<Lexling>();
 		}
 	};
 
-	void Lex(FileManagement::Files files)
-	{
+	void Lex(FileManagement::Files files) {
 		return;
 	}
 }

@@ -9,7 +9,7 @@ wai.main()() = {
 	integer !wai.u64,
 	float !wai.f32,
 	double !wai.f64,
-	boolean !wai.bool
+	boolean !wai.boolean
 }
 
 [ test alias ]
@@ -19,7 +19,7 @@ wai.main()() = {
 test.function()() = {
 	[ hello world ]
 	wai.print.string("Testing compilation features!")()
-	
+
 	[ named scope ]
 	@named_scope wai.always = {
 		[ offset ]
