@@ -1,8 +1,9 @@
-#pragma once
+#include "Application.hpp"
 
-#include "Compiler.cpp"
+int main(int argc, char* argv[]) {
+    // create application
+    Wai::Application application = Wai::Application(argc, argv);
 
-int main() {
-	Wai::Compiling::Compiler compiler;
-	compiler.Compile();
+    // run Wai
+    application.Run();
 }

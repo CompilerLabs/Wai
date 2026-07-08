@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include <string>
 #include <vector>
 #include <stdint.h>
 
@@ -22,6 +22,19 @@ namespace Wai {
 	// floating points
 	typedef float Float32;
 	typedef double Float64;
+
+    // character defines
+    typedef Wai::U8 Character;
+    typedef Wai::U64 TabDepth;
+
+    // generic defines
+    typedef Wai::U64 Length;
+    typedef Wai::U64 Index;
+
+    // text location defines
+    typedef Wai::Index FileIndex;
+    typedef Wai::U64 LineNumber;
+    typedef Wai::Index CharacterIndex;
 }
 
 /* Files */

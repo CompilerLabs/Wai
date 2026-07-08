@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Lexer.cpp"
+#include "Lexer.hpp"
+#include <iostream>
 
 namespace Wai::Compiling {
 	class Compiler {

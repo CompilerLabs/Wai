@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Basic.cpp"
+#include "Basic.hpp"
 
 namespace Wai::Lexing {
 	enum LexlingType {
