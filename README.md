@@ -1,3 +1,3 @@
 # Wai Programming Language
 
-A C++ replacement langauge.
+A C++ like language.

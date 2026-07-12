@@ -1,46 +1,24 @@
 [ main ]
-wai.main()() = {
-	wai.print.string("Basic WAI file")()
-}
+Wai.Main()() = {
+    [ print hello world ]
+    Wai.String.Print("Hello world!%0a")()
 
-[ test structure ]
-!test.structure = {
-	data !wai.string,
-	integer !wai.u64,
-	float !wai.f32,
-	double !wai.f64,
-	boolean !wai.boolean
+    [ do other stuff later ]
+    [ todo ]
 }
 
 [ test alias ]
-!test.alias = !test.structure
+!Test.Axis = !Wai.F32
 
-[ in depth test function ]
-test.function()() = {
-	[ hello world ]
-	wai.print.string("Testing compilation features!")()
+[ test structure ]
+!Test.Structure = (
+    X !Test.Axis,
+    Y !Test.Axis,
+    Z !Test.Axis
+)
 
-	[ named scope ]
-	@named_scope wai.always = {
-		[ offset ]
-		@test_offset
-
-		[ jump parsing tests ]
-		wai.jump(wai.never, @named_scope:top)()
-		wai.jump(wai.never, @named_scope:middle)()
-		wai.jump(wai.never, @named_scope:bottom)()
-
-		[ set values ]
-		wai.set("String!")(string)
-		wai.set(wai.u64.1234567890)(foo)
-
-		[ do math ]
-		wai.u64.add(foo, wai.u64.10)(foo)
-		wai.u64.subtract(foo, wai.u64.1)(foo)
-		wai.u64.multiply(foo, wai.u64.100)(foo)
-		wai.u64.divide(foo, wai.u64.5)(foo)
-
-		[ print values ]
-		wai.print.u64(foo)()
-	}
+[ test function ]
+Test.TestFeatures()() = {
+    [ test packing ]
+    Wai.Pack(
 }

@@ -1,4 +1,4 @@
 [ main ]
-wai.main()() = {
-	wai.print.string("Hello, World!")()
+Wai.Main()() = {
+	Wai.String.Print("Hello, World!")()
 }
