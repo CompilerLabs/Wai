@@ -157,70 +157,6 @@ namespace Wai {
         }
     };
 
-    // list type
-    class List {
-    public:
-        Wai::Buffer allocation; // the raw buffer
-        Wai::Length fillLength; // the amount of bytes used
-        Wai::Increase increase; // the amount that the list grows by every reallocation
-
-        // constructors
-        List() {
-            allocation = Wai::Buffer();
-            fillLength = 0;
-            increase = Wai::DefaultListIncrease;
-        }
-        List(Wai::Increase _increase) {
-            allocation.Allocate(_increase);
-            fillLength = 0;
-            increase = _increase;
-        }
-
-        // calculate content buffer
-        Wai::Buffer CalculateFillBuffer() {
-            return Wai::Buffer(allocation.start, allocation.start + fillLength - 1);
-        }
-
-        // append a buffer
-        void AppendBuffer(Wai::Buffer newData) {
-            // calculate new list fill length
-            Wai::Length newFillLength = allocation.Length() + newData.Length();
-
-            // check for reallocation
-            if (newFillLength > allocation.Length()) {
-                // allocate new buffer
-                Wai::Buffer newAllocation = Wai::Buffer();
-                newAllocation.Allocate(newFillLength);
-
-                // copy old data to new buffer
-                for (Wai::Length i = 0; i < allocation.Length(); i++) {
-                    ((Wai::Byte*)newAllocation.start)[i] = ((Wai::Byte*)allocation.start)[i];
-                }
-
-                // deallocate old buffer
-                allocation.Deallocate();
-
-                // install new buffer
-                allocation = newAllocation;
-            }
-
-            // append new data
-            for (Wai::Length i = 0; i < newData.Length(); i++) {
-                ((Wai::Byte*)(allocation.start + fillLength - 1))[i] = ((Wai::Byte*)newData.start)[i];
-            }
-        }
-
-        // append a list
-        void AppendList(Wai::List newData) {
-            AppendBuffer(newData.CalculateFillBuffer());
-        }
-
-        // destructors
-        ~List() {
-            allocation.Deallocate();
-        }
-    };
-
     class Current {
     public:
         Wai::Buffer range;
@@ -236,31 +172,44 @@ namespace Wai {
         }
     };
 
-    // file loader
-    class FileLoader {
+    // tabs
+    class Tabs {
     public:
-        Wai::Error error;
+        // style of tabs
+        std::string tabStyle;
+        Wai::TabDepth tabDepth;
 
-        // load file into std::string
-        std::string LoadTextFile(std::string _filePath) {
-            // null init error
-            error = Wai::Error();
+        // constructors
+        Tabs() {
+            tabStyle = "\t";
+            tabDepth = 0;
+        }
+        Tabs(std::string _tabStyle) {
+            tabStyle = _tabStyle;
+            tabDepth = 0;
+        }
+        Tabs(Wai::TabDepth _tabDepth) {
+            tabStyle = "\t";
+            tabDepth = _tabDepth;
+        }
+        Tabs(std::string _tabStyle, Wai::TabDepth _tabDepth) {
+            tabStyle = _tabStyle;
+            tabDepth = _tabDepth;
+        }
 
-            // open file stream
-            std::ifstream file(_filePath);
+        // generate tabs
+        std::string GenerateTabs(Wai::TabDepth tabCount) {
+            std::string output = "";
 
-            // check for error
-            if (!file) {
-                // setup error
-                error = Wai::Error(true, "Text file could not be loaded / found.", "\"file_path\": \"" + _filePath + "\"");
-
-                return "";
+            // append tabs
+            for (Wai::TabDepth i = 0; i < tabCount; i++) {
+                output += tabStyle;
             }
-
-            // read file into string
-            std::ostringstream stringstream;
-            stringstream << file.rdbuf();
-            return stringstream.str();
+            
+            return output;
+        }
+        std::string GenerateTabs() {
+            return GenerateTabs(tabDepth);
         }
     };
 }
