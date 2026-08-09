@@ -26,8 +26,8 @@ namespace Wai {
 	typedef bool Boolean;
 
 	// floating points
-	typedef float Float32;
-	typedef double Float64;
+	typedef float F32;
+	typedef double F64;
 
     // character defines
     typedef Wai::U8 Character;
@@ -263,20 +263,4 @@ namespace Wai {
             return stringstream.str();
         }
     };
-}
-
-/* Files */
-namespace Wai::FileManagement {
-	// one file
-	class File {
-	public:
-		std::string path;
-		std::string data;
-	};
-
-	// multiple files
-	class Files {
-	public:
-		std::vector<File> files;
-	};
 }

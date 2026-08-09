@@ -1,4 +1,0 @@
-[ main ]
-Wai.Main()() = {
-	Wai.String.Print("Hello, World!")()
-}

@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Basic.hpp"
+#include "Text.hpp"
+#include "FileManager.hpp"
 #include <string>
-#include "String.hpp"
 
 namespace Wai::Compiling {
-   	enum LexlingType {
+   	enum class LexlingType {
   		None,
   		Name,
   		LeftParenthesis,
@@ -81,12 +82,12 @@ namespace Wai::Compiling {
         }
 
 		// check end of files
-		Wai::Boolean FilesIndexInRange(Wai::FileManagement::Files& files, Wai::FileIndex index) {
+		Wai::Boolean FilesIndexInRange(Wai::FileManager::Files& files, Wai::FileIndex index) {
 			return (index < files.files.size());
 		}
 
 	public:
-	    Wai::Compiling::Lexlings Lex(Wai::FileManagement::Files& files) {
+	    Wai::Compiling::Lexlings Lex(Wai::FileManager::Files& files) {
 			Wai::Compiling::Lexlings output;
 			Wai::FileIndex fileIndex = 0;
 			Wai::LineNumber lineNumber = 1;
@@ -99,7 +100,7 @@ namespace Wai::Compiling {
 				characterIndex = 0;
 
 				// setup current file
-				Wai::FileManagement::File currentFile = files.files[fileIndex];
+				Wai::FileManager::File currentFile = files.files[fileIndex];
 				std::string& currentFileString = currentFile.data;
 
 				// lex over characters
@@ -108,7 +109,7 @@ namespace Wai::Compiling {
 
 					// skip whitespace
 					while (IndexInRangeOfString(files.files[fileIndex].data, characterIndex), LexingCheckWhitespaceCharacter(files.files[fileIndex].data[characterIndex])) {
-
+						
 					}
 				}
 			}

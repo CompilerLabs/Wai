@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Basic.hpp"
-#include <vector>
 
 namespace Wai::Text {
     // string length
