@@ -82,12 +82,12 @@ namespace Wai::Compiling {
         }
 
 		// check end of files
-		Wai::Boolean FilesIndexInRange(Wai::FileManager::Files& files, Wai::FileIndex index) {
+		Wai::Boolean FilesIndexInRange(Wai::Files::Files& files, Wai::FileIndex index) {
 			return (index < files.files.size());
 		}
 
 	public:
-	    Wai::Compiling::Lexlings Lex(Wai::FileManager::Files& files) {
+	    Wai::Compiling::Lexlings Lex(Wai::Debugging::Log* log, Wai::Files::Files& files) {
 			Wai::Compiling::Lexlings output;
 			Wai::FileIndex fileIndex = 0;
 			Wai::LineNumber lineNumber = 1;
@@ -100,16 +100,18 @@ namespace Wai::Compiling {
 				characterIndex = 0;
 
 				// setup current file
-				Wai::FileManager::File currentFile = files.files[fileIndex];
+				Wai::Files::File currentFile = files.files[fileIndex];
 				std::string& currentFileString = currentFile.data;
+				
+				// log
+				log->LogNote("Lexing file.", { Wai::Debugging::LogEntrySubdata("filePath", currentFile.path) });
 
 				// lex over characters
 				while (IndexInRangeOfString(currentFileString, characterIndex)) {
-					// get character
 
 					// skip whitespace
 					while (IndexInRangeOfString(files.files[fileIndex].data, characterIndex), LexingCheckWhitespaceCharacter(files.files[fileIndex].data[characterIndex])) {
-						
+						characterIndex++;
 					}
 				}
 			}

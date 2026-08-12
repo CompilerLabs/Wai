@@ -1,2 +1,2 @@
 all:
-	g++ ./Source/Wai.cpp -Wall -Wextra -o ../Wai.elf
+	g++ ./Source/Wai.cpp -Wall -Wextra -fsanitize=address -o ../Wai.elf

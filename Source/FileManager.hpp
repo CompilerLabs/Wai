@@ -5,46 +5,54 @@
 #include <string>
 #include <vector>
 
-namespace Wai::FileManager {
-	// file loader
-    class FileLoader {
+namespace Wai::Files {
+	// one file
+	class File {
+	public:
+		std::string path;
+		std::string data;
+
+        // constructors
+        File() {
+            path = "";
+            data = "";
+        }
+        File(std::string _path, std::string _data) {
+            path = _path;
+            data = _data;
+        }
+	};
+
+    class Files {
     public:
-        Wai::Error error;
+        std::vector<Wai::Files::File> files;
+    };
 
+	// multiple files
+	class FileManager {
+	public:
         // load file into std::string
-        std::string LoadTextFile(std::string _filePath) {
-            // null init error
-            error = Wai::Error();
-
+        Wai::Files::File LoadTextFile(Wai::Debugging::Log* log, std::string _filePath) {
             // open file stream
             std::ifstream file(_filePath);
 
             // check for error
             if (!file) {
                 // setup error
-                error = Wai::Error(true, "Text file could not be loaded / found.", "\"file_path\": \"" + _filePath + "\"");
+                log->LogCriticalError("Text file could not be loaded / found.", {
+                    Wai::Debugging::LogEntrySubdata("file_path", _filePath)
+                });
 
-                return "";
+                return Wai::Files::File();
             }
 
             // read file into string
             std::ostringstream stringstream;
             stringstream << file.rdbuf();
-            return stringstream.str();
-        }
-    };
-	
-	// one file
-	class File {
-	public:
-		std::string path;
-		std::string data;
-	};
+            std::string data = stringstream.str();
 
-	// multiple files
-	class Files {
-	public:
-		// files allocation
-		std::vector<Wai::FileManager::File> files;
+            // return file
+            return Wai::Files::File(_filePath, data);
+        }
 	};
 }

@@ -216,6 +216,11 @@ namespace Wai::Debugging {
             LogAny(Wai::Debugging::EntryType::CriticalError, message, false, true, {});
         }
 
+        // check any error occured
+        Wai::Boolean CheckAnyErrorOccured() {
+            return normalErrorOccured || criticalErrorOccured;
+        }
+
         // turn entire log into json string
         std::string ToString() {
             // header

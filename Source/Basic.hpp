@@ -47,63 +47,6 @@ namespace Wai {
     // default list increase
     const Wai::Increase DefaultListIncrease = 1024;
 
-    // error class
-    class Error {
-    public:
-        bool occured;
-        std::string reason;
-        std::string extraInformation;
-
-        // constructors
-        Error() {
-            occured = false;
-            reason = "No problem was detected.";
-            extraInformation = "";
-        }
-        Error(bool _occured, std::string _reason) {
-            occured = _occured;
-            reason = _reason;
-            extraInformation = "";
-        }
-        Error(bool _occured, std::string _reason, std::string _extraInformation) {
-            occured = _occured;
-            reason = _reason;
-            extraInformation = _extraInformation;
-        }
-
-        // to json string
-        std::string ToJSONString() {
-            std::string output = "";
-
-            // create json header
-            output += "\"error\": {\n";
-
-            // add occured value
-            output += "\t\"occured\": ";
-            if (occured) {
-                output += "true";
-            } else {
-                output += "false";
-            }
-            output += ",\n";
-
-            // add reason
-            output += "\t\"reason\": \"" + reason + "\"";
-
-            // add extra information
-            if (extraInformation != "") {
-                output += ",\n\t" + extraInformation + "\n";
-            } else {
-                output += "\n";
-            }
-
-            // create json footer
-            output += "}\n";
-
-            return output;
-        }
-    };
-
     // buffer
     class Buffer {
     public:

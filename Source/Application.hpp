@@ -3,32 +3,64 @@
 #include <iostream>
 #include <vector>
 #include "Compiler.hpp"
+#include "JSON.hpp"
 #include "OSCMD.hpp"
 
 namespace Wai {
+    // the highest level of the program
     class Application {
         Wai::OS::TerminalArguments terminalArgumentHandler;
         Wai::Compiling::Compiler compiler;
+        Wai::Files::FileManager fileManager;
 
     public:
+        // log
+        Wai::Debugging::Log log;
+
         // constructors
         Application() {
             terminalArgumentHandler = Wai::OS::TerminalArguments();
         }
-        Application(std::vector<std::string> _termainalArguments) {
-            terminalArgumentHandler.ParseArguments(_termainalArguments);
+        Application(std::vector<std::string> _terminalArguments) {
+            terminalArgumentHandler.ParseArguments(&log, _terminalArguments);
         }
         Application(int argc, char* argv[]) {
-            terminalArgumentHandler = Wai::OS::TerminalArguments(argc, argv);
+            terminalArgumentHandler = Wai::OS::TerminalArguments(&log, argc, argv);
         }
 
         // run compiler
         void Run() {
-            // starting message
-            std::cout << "Running Compiler!" << std::endl;
+            // get json settings file
+            log.LogNote("Application start. Searching for compilation settings...");
+            std::string jsonFilePath = terminalArgumentHandler.jsonSettingsFilePath;
+            if (log.CheckAnyErrorOccured()) {
+                return;
+            }
+
+            // load json settings file
+            log.LogNote("Application found settings file.");
+            Wai::Files::File settings = fileManager.LoadTextFile(&log, jsonFilePath);
+            if (log.CheckAnyErrorOccured()) {
+                return;
+            }
+
+            // parse json
+            log.LogNote("Parsing settings file.");
+            Wai::JSON::JSONCompiler jsonCompiler;
+            Wai::JSON::Root root = jsonCompiler.CompileJSON(&log, settings.data);
+            if (log.CheckAnyErrorOccured()) {
+                return;
+            }
+
+            // log
+            log.LogNote("Application is loading settings into a workspace.");
+
+            // import settings
+            Wai::Compiling::Workspace workspace;
+            workspace.ImportSettingsFromJSON(&root);
 
             // compile
-            compiler.Compile();
+            compiler.Compile(&log, &workspace);
         }
     };
 }
