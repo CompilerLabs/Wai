@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Basic.hpp"
-#include "Log.hpp"
 #include <string>
 #include <vector>
 
@@ -32,7 +31,7 @@ namespace Wai::Files {
 	class FileManager {
 	public:
         // load file into std::string
-        Wai::Files::File LoadTextFile(Wai::Debugging::Log* log, std::string _filePath) {
+        Wai::Files::File LoadTextFile(CompilerLabs::Logs::Log* log, std::string _filePath) {
             // open file stream
             std::ifstream file(_filePath);
 
@@ -40,7 +39,7 @@ namespace Wai::Files {
             if (!file) {
                 // setup error
                 log->LogCriticalError("Text file could not be loaded / found.", {
-                    Wai::Debugging::LogEntrySubdata("file_path", _filePath)
+                    CompilerLabs::Logs::LogEntrySubdata("file_path", _filePath)
                 });
 
                 return Wai::Files::File();

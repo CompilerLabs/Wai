@@ -2,20 +2,18 @@
 
 #include <iostream>
 #include <vector>
-#include "Compiler.hpp"
-#include "JSON.hpp"
 #include "OSCMD.hpp"
+#include "FileManager.hpp"
 
 namespace Wai {
     // the highest level of the program
     class Application {
         Wai::OS::TerminalArguments terminalArgumentHandler;
-        Wai::Compiling::Compiler compiler;
         Wai::Files::FileManager fileManager;
 
     public:
         // log
-        Wai::Debugging::Log log;
+        CompilerLabs::Logs::Log log;
 
         // constructors
         Application() {
@@ -46,8 +44,8 @@ namespace Wai {
 
             // parse json
             log.LogNote("Parsing settings file.");
-            Wai::JSON::JSONCompiler jsonCompiler;
-            Wai::JSON::Root root = jsonCompiler.CompileJSON(&log, settings.data);
+            CompilerLabs::JSON::JSONCompiler jsonCompiler;
+            CompilerLabs::JSON::Root root = jsonCompiler.CompileJSON(&log, settings.data);
             if (log.CheckAnyErrorOccured()) {
                 return;
             }
@@ -56,11 +54,11 @@ namespace Wai {
             log.LogNote("Application is loading settings into a workspace.");
 
             // import settings
-            Wai::Compiling::Workspace workspace;
-            workspace.ImportSettingsFromJSON(&root);
+            // Wai::Compiling::Workspace workspace;
+            // workspace.ImportSettingsFromJSON(&root);
 
             // compile
-            compiler.Compile(&log, &workspace);
+            // compiler.Compile(&log, &workspace);
         }
     };
 }
